@@ -1,7 +1,7 @@
 import data
 import build_data
 import unittest
-
+import hw3
 
 # These two values are defined to support testing below. The
 # data within these structures should not be modified. Doing
@@ -180,20 +180,60 @@ class TestCases(unittest.TestCase):
 
     # Part 1
     # test population_total
-
+    def test_populationTotal(self):
+        totalPopulation = hw3.population_total(full_data)
+        self.assertEqual(318857056,totalPopulation)
     # Part 2
     # test filter_by_state
-
+    def test_stateFilter(self):
+        countyList = reduced_data.copy()
+        result = hw3.filter_by_state(countyList, 'CA')
+        self.assertEqual([countyList[2],countyList[3]],result)
+        self.assertEqual([],hw3.filter_by_state(countyList, 'Terry'))
+        self.assertEqual([],hw3.filter_by_state([], 'CA'))
     # Part 3
     # test population_by_education
+    def test_educationFilter(self):
+        countyList = [reduced_data[2]]
+        result = hw3.population_by_education(countyList,"Bachelor's Degree or Higher")
+        self.assertAlmostEqual(87911.145, result)
+        self.assertEqual(0, hw3.population_by_education(countyList,"harold"))
+        self.assertEqual(0, hw3.population_by_education([],"Bachelor's Degree or Higher"))
+
     # test population_by_ethnicity
+    def test_ethnicityFilter(self):
+        countyList = [reduced_data[2]]
+        result = hw3.population_by_ethnicity(countyList, "Asian Alone")
+        self.assertEqual(10605.154, result)
+        self.assertEqual(0, hw3.population_by_ethnicity(countyList, "harry"))
     # test population_below_poverty_level
+    def test_populationBelowPovertyLevel(self):
+        countyList = reduced_data
+        result = hw3.population_below_poverty_level(countyList)
+        self.assertEqual(107711.714,result)
+        self.assertEqual(0,hw3.population_below_poverty_level([]))
 
     # Part 4
     # test percent_by_education
+    def test_percentEducation(self):
+        countryList = reduced_data
+        result = hw3.percent_by_education([countryList[2]], "Bachelor's Degree or Higher")
+        self.assertEqual(31.5, result)
+        self.assertEqual(0, hw3.percent_by_education([],"Bachelor's Degree or Higher"))
     # test percent_by_ethnicity
-    # test percent_below_poverty_level
+    def test_percentEthnicity(self):
+        countryList = reduced_data
+        result = hw3.percent_by_ethnicity([countryList[2]], "Asian Alone")
+        self.assertEqual(3.8, result)
+        self.assertEqual(0, hw3.percent_by_ethnicity(countryList,"Harold"))
+        self.assertEqual(0, hw3.percent_by_ethnicity([],"Asian Alone"))
 
+    # test percent_below_poverty_level
+    def test_percentBelowPovertyLevel(self):
+        countryList = reduced_data
+        result = hw3.percent_below_poverty_level([countryList[2]])
+        self.assertEqual(14.3, result)
+        self.assertEqual(0, hw3.percent_by_education([],"Bachelor's Degree or Higher"))
     # Part 5
     # test education_greater_than
     # test education_less_than
