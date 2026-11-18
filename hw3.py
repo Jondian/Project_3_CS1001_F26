@@ -46,32 +46,54 @@ def population_below_poverty_level(counties: list[data.CountyDemographics]) -> f
 # Function 6: Calculate Percent by Education
 def percent_by_education(counties: list[data.CountyDemographics], key: str) -> float:
     totalCountiesPopulation = population_total(counties)
-    if totalCountiesPopulation == 0:
+    if totalCountiesPopulation == 0: # returns 0 to avoid divide by 0 error if there is an empty list
         return 0
-    subCountiesPopulation = population_by_education(counties, key)
+    subCountiesPopulation = population_by_education(counties, key) # finds total people with a certain education level
     return 100 * (subCountiesPopulation/totalCountiesPopulation)
 
 # Function 7: Calculate Percent by Ethnicity
 def percent_by_ethnicity(counties: list[data.CountyDemographics], key: str) -> float:
     totalCountiesPopulation = population_total(counties)
-    if totalCountiesPopulation == 0:
+    if totalCountiesPopulation == 0: # returns 0 to avoid divide by 0 error if there is an empty list
         return 0
-    subCountiesPopulation = population_by_ethnicity(counties, key)
+    subCountiesPopulation = population_by_ethnicity(counties, key) # finds total people with a certain ethnicity
     return 100 * (subCountiesPopulation/totalCountiesPopulation)
 # Function 8: Calculate Percent by Poverty
 def percent_below_poverty_level(counties: list[data.CountyDemographics]) -> float:
     totalCountiesPopulation = population_total(counties)
-    if totalCountiesPopulation == 0:
+    if totalCountiesPopulation == 0: # returns 0 to avoid divide by 0 error if there is an empty list
         return 0
-    subCountiesPopulation = population_below_poverty_level(counties)
+    subCountiesPopulation = population_below_poverty_level(counties) # finds total people below poverty level
     return 100 * (subCountiesPopulation/totalCountiesPopulation)
 
-def thingy(thing: list[int]) -> int:
-    default = -1
-    for i in range(len(thing)):
-        if thing[i] == 4:
-            return i
-    return default
-print(thingy([1,2,3,1,2,5]))
 # PART 5: Filter Counties by Demographic Thresholds
-# Function 9
+# Function 9: Filters counties by their education greater than a threshold
+def education_greater_than(counties: list[data.CountyDemographics], key: str, threshold: float) -> list[data.CountyDemographics]:
+    countiesGreaterThan = []
+    for county in counties:
+        if county.education.get(key, 0) > threshold: # checks if the county's education percent is greater than a threshold
+            countiesGreaterThan.append(county) # adds county object to list
+    return countiesGreaterThan # returns list
+# Function 10: Filters counties by their education less than a threshold
+def education_less_than(counties: list[data.CountyDemographics], key: str, threshold: float) -> list[data.CountyDemographics]:
+    countiesLessThan = []
+    for county in counties:
+        if county.education.get(key, 0) < threshold:  # checks if the county's education percent is less than than a threshold
+            countiesLessThan.append(county)# adds county object to list
+    return countiesLessThan# returns list
+
+# Function 11: Filters counties by their ethnicity greater than a threshold
+def ethnicity_greater_than(counties: list[data.CountyDemographics], key: str, threshold: float) -> list[data.CountyDemographics]:
+    countiesLessThan = []
+    for county in counties:
+        if county.ethnicities.get(key, 0) > threshold: # checks if the county's ethnicity percent is greater than a threshold
+            countiesLessThan.append(county) # adds county object to list
+    return countiesLessThan # returns list
+
+# Function 12: Filters counties by their ethnicity less than a threshold
+def ethnicity_less_than(counties: list[data.CountyDemographics], key: str, threshold: float) -> list[data.CountyDemographics]:
+    countiesLessThan = []
+    for county in counties:
+        if county.ethnicities.get(key, 0) < threshold: # checks if the county's ethnicity percent is less than than a threshold
+            countiesLessThan.append(county) # adds county object to list
+    return countiesLessThan # returns list

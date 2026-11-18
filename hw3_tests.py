@@ -236,8 +236,18 @@ class TestCases(unittest.TestCase):
         self.assertEqual(0, hw3.percent_by_education([],"Bachelor's Degree or Higher"))
     # Part 5
     # test education_greater_than
+    def test_educationGreaterThan(self):
+        countyList = reduced_data
+        result = hw3.education_greater_than(countyList,"Bachelor's Degree or Higher",35.3)
+        self.assertEqual([countyList[3]],result)
+    
     # test education_less_than
+    def test_educationLessThan(self):
+        countyList = reduced_data
+        result = hw3.education_less_than(countyList,"Bachelor's Degree or Higher",15)
+        self.assertEqual([countyList[1]],result)
     # test ethnicity_greater_than
+    def test_ethnicityGreaterThan(self):
     # test ethnicity_less_than
     # test below_poverty_level_greater_than
     # test below_poverty_level_less_than
