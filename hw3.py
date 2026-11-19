@@ -1,7 +1,4 @@
 import data
-import build_data
-
-full_data = build_data.get_data()
 
 # PART 1: Total Population
 # Function 1: find the total population of a given list of counties
@@ -84,16 +81,33 @@ def education_less_than(counties: list[data.CountyDemographics], key: str, thres
 
 # Function 11: Filters counties by their ethnicity greater than a threshold
 def ethnicity_greater_than(counties: list[data.CountyDemographics], key: str, threshold: float) -> list[data.CountyDemographics]:
-    countiesLessThan = []
+    countiesGreaterThan = []
     for county in counties:
         if county.ethnicities.get(key, 0) > threshold: # checks if the county's ethnicity percent is greater than a threshold
-            countiesLessThan.append(county) # adds county object to list
-    return countiesLessThan # returns list
+            countiesGreaterThan.append(county) # adds county object to list
+    return countiesGreaterThan # returns list
 
 # Function 12: Filters counties by their ethnicity less than a threshold
 def ethnicity_less_than(counties: list[data.CountyDemographics], key: str, threshold: float) -> list[data.CountyDemographics]:
     countiesLessThan = []
     for county in counties:
-        if county.ethnicities.get(key, 0) < threshold: # checks if the county's ethnicity percent is less than than a threshold
+        if county.ethnicities.get(key, 1000) < threshold: # checks if the county's ethnicity percent is less than than a threshold
             countiesLessThan.append(county) # adds county object to list
+    return countiesLessThan # returns list
+
+
+# Function 13: Filters counties by their 'persons below poverty level' being above a given threshold
+def below_poverty_level_greater_than(counties: list[data.CountyDemographics], threshold: float) -> list[data.CountyDemographics]:
+    countiesGreaterThan = []
+    for county in counties:
+        if county.income.get('Persons Below Poverty Level',0) > threshold: # checks if the county's 'persons below poverty level' percent is greater than than a threshold
+            countiesGreaterThan.append(county) # adds county object to list
+    return countiesGreaterThan # returns list
+
+# Function 14: Filters counties by their 'persons below poverty level' being below a given threshold
+def below_poverty_level_less_than(counties: list[data.CountyDemographics], threshold: float) -> list[data.CountyDemographics]:
+    countiesLessThan = []
+    for county in counties:
+        if county.income.get('Persons Below Poverty Level',0) < threshold: # checks if the county's 'persons below poverty level' percent is less than than a threshold
+             countiesLessThan.append(county) # adds county object to list
     return countiesLessThan # returns list

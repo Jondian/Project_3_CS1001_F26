@@ -185,72 +185,154 @@ class TestCases(unittest.TestCase):
         self.assertEqual(318857056,totalPopulation)
     # Part 2
     # test filter_by_state
-    def test_stateFilter(self):
+    def test_stateFilter(self): # test if function works with given list in file
         countyList = reduced_data.copy()
         result = hw3.filter_by_state(countyList, 'CA')
         self.assertEqual([countyList[2],countyList[3]],result)
+        
+    def test_stateFilter_invalidInput(self):
+        countyList = reduced_data.copy()
         self.assertEqual([],hw3.filter_by_state(countyList, 'Terry'))
+        
+    def test_stateFilter_emptyList(self): # tests if an empty lists returns empty
+        countyList = reduced_data.copy()
         self.assertEqual([],hw3.filter_by_state([], 'CA'))
+   
     # Part 3
     # test population_by_education
-    def test_educationFilter(self):
+    def test_educationFilter(self): # test if function works with given list in file
         countyList = [reduced_data[2]]
         result = hw3.population_by_education(countyList,"Bachelor's Degree or Higher")
         self.assertAlmostEqual(87911.145, result)
+    
+    def test_educationFilter_badInput(self):
+        countyList = reduced_data
         self.assertEqual(0, hw3.population_by_education(countyList,"harold"))
+        
+    def test_eductationFilter_EmptyList(self): # tests if an empty lists returns empty
         self.assertEqual(0, hw3.population_by_education([],"Bachelor's Degree or Higher"))
 
     # test population_by_ethnicity
-    def test_ethnicityFilter(self):
+    def test_ethnicityFilter(self): # test if function works with given list in file
         countyList = [reduced_data[2]]
         result = hw3.population_by_ethnicity(countyList, "Asian Alone")
         self.assertEqual(10605.154, result)
+
+    def test_ethnicityFilter_badInput(self):
+        countyList = reduced_data.copy()
         self.assertEqual(0, hw3.population_by_ethnicity(countyList, "harry"))
+    
     # test population_below_poverty_level
-    def test_populationBelowPovertyLevel(self):
-        countyList = reduced_data
+    def test_populationBelowPovertyLevel(self): # test if function works with given list in file
+        countyList = reduced_data.copy()
         result = hw3.population_below_poverty_level(countyList)
         self.assertEqual(107711.714,result)
+
+    def test_populationBelowPovertyLevel(self): # tests if an empty lists returns empty
         self.assertEqual(0,hw3.population_below_poverty_level([]))
 
     # Part 4
     # test percent_by_education
-    def test_percentEducation(self):
-        countryList = reduced_data
+    def test_percentEducation(self): # test if function works with given list in file
+        countryList = reduced_data.copy()
         result = hw3.percent_by_education([countryList[2]], "Bachelor's Degree or Higher")
         self.assertEqual(31.5, result)
+
+    def test_percentEducation_emptyList(self): # tests if an empty lists returns empty
         self.assertEqual(0, hw3.percent_by_education([],"Bachelor's Degree or Higher"))
+    
     # test percent_by_ethnicity
-    def test_percentEthnicity(self):
-        countryList = reduced_data
+    def test_percentEthnicity(self): # test if function works with given list in file
+        countryList = reduced_data.copy()
         result = hw3.percent_by_ethnicity([countryList[2]], "Asian Alone")
         self.assertEqual(3.8, result)
-        self.assertEqual(0, hw3.percent_by_ethnicity(countryList,"Harold"))
+    
+    def test_percentEthnicity_invalidInput(self):
+        countryList = reduced_data.copy()
+        self.assertEqual(0, hw3.percent_by_ethnicity(countryList,"Harold")) # tests if an invalid input name returns with nothing
+    
+    def test_percentEthnicity_emptyList(self): # tests if an empty lists returns empty
         self.assertEqual(0, hw3.percent_by_ethnicity([],"Asian Alone"))
 
     # test percent_below_poverty_level
-    def test_percentBelowPovertyLevel(self):
-        countryList = reduced_data
+    def test_percentBelowPovertyLevel(self): # test if function works with given list in file
+        countryList = reduced_data.copy()
         result = hw3.percent_below_poverty_level([countryList[2]])
         self.assertEqual(14.3, result)
-        self.assertEqual(0, hw3.percent_by_education([],"Bachelor's Degree or Higher"))
+        
+    def test_percentBelowPovertyLevel_emptyList(self): # tests if an empty lists returns empty
+        self.assertEqual(0, hw3.percent_below_poverty_level([]))
+    
     # Part 5
+    
     # test education_greater_than
-    def test_educationGreaterThan(self):
-        countyList = reduced_data
+    def test_educationGreaterThan(self): # test if function works with given list in file
+        countyList = reduced_data.copy()
         result = hw3.education_greater_than(countyList,"Bachelor's Degree or Higher",35.3)
         self.assertEqual([countyList[3]],result)
     
+    def test_educationGreaterThan_emptyList(self):
+        self.assertEqual([],hw3.education_greater_than([],"Bachelor's Degree or Higher",35.3))
+
+    
     # test education_less_than
-    def test_educationLessThan(self):
-        countyList = reduced_data
+    def test_educationLessThan(self): # test if function works with given list in file
+        countyList = reduced_data.copy()
         result = hw3.education_less_than(countyList,"Bachelor's Degree or Higher",15)
         self.assertEqual([countyList[1]],result)
+
+    def test_educationLessThan_emptyList(self):
+        self.assertEqual([], hw3.education_less_than([],"Bachelor's Degree or Higher", 12))
+    
     # test ethnicity_greater_than
-    def test_ethnicityGreaterThan(self):
+    def test_ethnicityGreaterThan(self): # test if function works with given list in file
+        countyList = reduced_data.copy()
+        result = hw3.ethnicity_greater_than(countyList,"Asian Alone", 13)
+        self.assertEqual([countyList[3]], result)
+
+    def test_ethnicityGreaterThan_emptyList(self): # tests if an empty lists returns an empty list
+        countyList = []
+        result = hw3.ethnicity_greater_than(countyList,"Asian Alone", 51)
+        self.assertEqual([],result)
+
+    def test_ethnicityGreaterThan_invalidInput(self):
+        countyList = reduced_data.copy()
+        result = hw3.ethnicity_greater_than(countyList,"Mars", 13) # tests if an invalid input name returns with nothing
+        self.assertEqual([], result)
+
     # test ethnicity_less_than
+    def test_ethnicityLessThan(self): # tests if function works with list inside this file
+        countyList = reduced_data.copy()
+        result = hw3.ethnicity_less_than(countyList,'Asian Alone', 0.35)
+        self.assertEqual([countyList[-3]],result)
+
+    def test_ethnicityLessThan_emptyList(self): # tests if an empty lists returns an empty list
+        self.assertEqual([],hw3.ethnicity_less_than([],'Asian Alone', 23))
+
+    def test_ethnicityLessThan_invalidInput(self): # test if an invalid input returns an empty list
+        countyList = reduced_data.copy()
+        result = hw3.ethnicity_less_than(countyList,'Mars', 0.35)
+        self.assertEqual([],result)
+
     # test below_poverty_level_greater_than
+    def test_povertyLevelGreaterThan(self): # tests if function works
+        countyList = reduced_data.copy()
+        result = hw3.below_poverty_level_greater_than(countyList, 20)
+        self.assertEqual([countyList[1]],result)
+    
+    def test_povertyLevelGreaterThan_emptyList(self): # tests if an empty input returns an empty list
+        self.assertEqual([],hw3.below_poverty_level_greater_than([],23))
+    
     # test below_poverty_level_less_than
+
+    def test_povertyLevelLessThan(self): # tests if function works
+        countyList = reduced_data.copy()
+        result = hw3.below_poverty_level_less_than(countyList, 12)
+        self.assertEqual([countyList[-1]],result)
+    
+    def test_povertyLevelLessThan_emptyList(self): # tests if an empty input returns an empty list
+        self.assertEqual([],hw3.below_poverty_level_less_than([],23))
+    
 
 
 
